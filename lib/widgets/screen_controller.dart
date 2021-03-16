@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:yoboshu/providers/create_post_model.dart';
-import 'package:yoboshu/providers/feed_provider.dart';
-import 'package:yoboshu/providers/navigation_provider.dart';
 import 'package:yoboshu/widgets/bottom_navigation.dart';
 import 'package:yoboshu/widgets/selection_on_change.dart';
 

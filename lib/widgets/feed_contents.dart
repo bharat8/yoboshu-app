@@ -141,8 +141,9 @@ class FeedContents extends StatelessWidget {
                     child: Row(
                       children: [
                         Container(
-                            width: 20,
-                            height: 20,
+                            width: 40,
+                            height: 30,
+                            padding: EdgeInsets.all(2),
                             child: provider.feedsList[currentIndex]
                                         .gritCompleted ==
                                     false
@@ -167,8 +168,9 @@ class FeedContents extends StatelessWidget {
                     child: Row(
                       children: [
                         Container(
-                            width: 20,
-                            height: 20,
+                            width: 40,
+                            height: 30,
+                            padding: EdgeInsets.all(2),
                             child: provider.feedsList[currentIndex]
                                         .inspiredCompleted ==
                                     false
@@ -191,8 +193,9 @@ class FeedContents extends StatelessWidget {
                   Row(
                     children: [
                       Container(
-                          width: 20,
-                          height: 20,
+                          width: 40,
+                          height: 30,
+                          padding: EdgeInsets.all(4),
                           child: Image.asset("assets/images/chat.png")),
                       Text(
                         "   ${provider.feedsList[currentIndex].commentCount}",
@@ -206,7 +209,7 @@ class FeedContents extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(right: 8.0),
                       child: Container(
-                          width: 20, height: 20, child: Icon(Icons.share)),
+                          width: 40, height: 30, child: Icon(Icons.share)),
                     ),
                   )
                 ],

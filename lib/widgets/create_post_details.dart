@@ -35,7 +35,7 @@ class _CreatePostDetailsState extends State<CreatePostDetails> {
         children: [
           Container(
             width: mediaQuery.size.width,
-            height: mediaQuery.size.height * 0.12,
+            height: mediaQuery.size.height * 0.12 - mediaQuery.padding.top,
             decoration: BoxDecoration(
                 gradient: LinearGradient(
               colors: [Colors.deepPurple[100], Colors.blue[100]],
@@ -93,7 +93,7 @@ class _CreatePostDetailsState extends State<CreatePostDetails> {
                   },
                 ),
                 Consumer2<CreatePostData, FeedProvider>(
-                  builder: (_, value, value1, __) => ElevatedButton(
+                  builder: (ctx, value, value1, __) => ElevatedButton(
                     style: ButtonStyle(
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -107,7 +107,7 @@ class _CreatePostDetailsState extends State<CreatePostDetails> {
                           selectedCommunity,
                           _titleController.text,
                           _captionController.text,
-                          context,
+                          ctx,
                           value1);
                     },
                     child: Text(
@@ -153,77 +153,80 @@ class _CreatePostDetailsState extends State<CreatePostDetails> {
             ),
           ),
           Container(
-            height: mediaQuery.size.height * 0.72,
+            height: mediaQuery.size.height * 0.66,
             width: mediaQuery.size.width,
             padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: mediaQuery.size.height * 0.08,
-                  alignment: Alignment.center,
-                  child: TextField(
-                    controller: _titleController,
-                    maxLines: 1,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87),
-                    decoration: InputDecoration.collapsed(
-                        hintText: "A catchy title (max 180 characters)",
-                        hintStyle: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold)),
-                  ),
-                ),
-                Container(
-                  height: mediaQuery.size.height * 0.03,
-                  child: Divider(
-                    color: Colors.black12,
-                    thickness: 1,
-                  ),
-                ),
-                if (widget.type == "Image")
-                  Consumer<CreatePostData>(
-                    builder: (BuildContext ctx, value, Widget child) =>
-                        GestureDetector(
-                      onTap: () => value.uploadImage(ctx),
-                      child: Container(
-                        height: mediaQuery.size.height * 0.25,
-                        child: Card(
-                          child: Center(
-                              child: value.pickedImage == null
-                                  ? Icon(Icons.add)
-                                  : Image.file(value.pickedImage)),
-                        ),
-                      ),
+            child: LayoutBuilder(
+              builder: (context, constraints) => Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: constraints.maxHeight * 0.1,
+                    alignment: Alignment.center,
+                    child: TextField(
+                      controller: _titleController,
+                      maxLines: 1,
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87),
+                      decoration: InputDecoration.collapsed(
+                          hintText: "A catchy title (max 180 characters)",
+                          hintStyle: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
                     ),
                   ),
-                if (widget.type == "Image")
                   Container(
-                    height: mediaQuery.size.height * 0.03,
+                    height: constraints.maxHeight * 0.05,
                     child: Divider(
                       color: Colors.black12,
                       thickness: 1,
                     ),
                   ),
-                Container(
-                  height: mediaQuery.size.height * 0.25,
-                  padding: EdgeInsets.only(top: 10),
-                  child: TextField(
-                    controller: _captionController,
-                    maxLines: 1,
-                    style: TextStyle(fontSize: 18, color: Colors.black87),
-                    decoration: InputDecoration.collapsed(
+                  if (widget.type == "Image")
+                    Consumer<CreatePostData>(
+                      builder: (BuildContext ctx, value, Widget child) =>
+                          GestureDetector(
+                        onTap: () => value.uploadImage(ctx),
+                        child: Container(
+                          height: constraints.maxHeight * 0.4,
+                          child: Card(
+                            child: Center(
+                                child: value.pickedImage == null
+                                    ? Icon(Icons.add)
+                                    : Image.file(value.pickedImage)),
+                          ),
+                        ),
+                      ),
+                    ),
+                  if (widget.type == "Image")
+                    Container(
+                      height: constraints.maxHeight * 0.05,
+                      child: Divider(
+                        color: Colors.black12,
+                        thickness: 1,
+                      ),
+                    ),
+                  Container(
+                    height: constraints.maxHeight * 0.4,
+                    padding: EdgeInsets.only(top: 10),
+                    child: TextField(
+                      controller: _captionController,
+                      maxLines: 1,
+                      style: TextStyle(fontSize: 18, color: Colors.black87),
+                      decoration: InputDecoration.collapsed(
                         hintText: widget.type == "Image"
                             ? "Caption for the image (optional)"
                             : (widget.type == "Text"
                                 ? "A detailed discription (optional)"
                                 : "https://"),
                         hintStyle:
-                            TextStyle(fontSize: 18, color: Colors.black54)),
-                  ),
-                )
-              ],
+                            TextStyle(fontSize: 18, color: Colors.black54),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           )
         ],

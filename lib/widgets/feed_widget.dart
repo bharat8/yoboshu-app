@@ -12,7 +12,6 @@ class Feed extends StatelessWidget {
         builder: (BuildContext ctx, value, Widget child) => ListView.builder(
           shrinkWrap: true,
           itemBuilder: (ctx, index) {
-            print(value.feedsList.length);
             return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Container(

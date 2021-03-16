@@ -135,6 +135,7 @@ class CreatePostData extends ChangeNotifier {
         community != null &&
         title.length > 0 &&
         caption != null) {
+      if (!caption.contains("https")) caption = "https://$caption";
       prov.addNewFeed(FeedModel(
           userID: "5",
           userName: userName,
@@ -180,17 +181,5 @@ class CreatePostData extends ChangeNotifier {
   void cleanAndUpdate(BuildContext context) {
     Navigator.of(context).pop();
     _image = null;
-    Future.delayed(const Duration(seconds: 2), () {
-      showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Container(
-            width: MediaQuery.of(context).size.width,
-            height: 50,
-            child: Center(child: Text("Posted")),
-          );
-        },
-      );
-    });
   }
 }
